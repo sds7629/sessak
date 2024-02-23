@@ -24,29 +24,29 @@ res = session.get(url, headers=headers)
 title_list = []
 urls = []
 
-# async def fetch(session, url):
-#     async with session.get(url) as res:
-#         return await res.text()
+async def fetch(session, url):
+    async with session.get(url) as res:
+        return await res.text()
 
 
-# async def craw_get():
-#     async with aiohttp.ClientSession() as session:
-#         res = await fetch(session, url)
-#         if res:
-#             soup = BeautifulSoup(res, "html.parser")
-#             titles = soup.select(".sa_text_title")
+async def craw_get():
+    async with aiohttp.ClientSession() as session:
+        res = await fetch(session, url)
+        if res:
+            soup = BeautifulSoup(res, "html.parser")
+            titles = soup.select(".sa_text_title")
 
-#             for title in titles:
-#                 urls.append(title["href"])
-#                 title_list.append(title.text.strip("\n"))
+            for title in titles:
+                urls.append(title["href"])
+                title_list.append(title.text.strip("\n"))
 
-#             df = pd.DataFrame()
-#             df["url"] = urls
-#             df["제목"] = title_list
-#             print(df)
+            df = pd.DataFrame()
+            df["url"] = urls
+            df["제목"] = title_list
+            print(df)
 
-#         else:
-#             print("bi")
+        else:
+            print("bi")
 
 
 # if __name__ == "__main__":

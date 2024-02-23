@@ -318,4 +318,134 @@ a.issubset({1,2,3})
 
 ## 세트 조작
 
-삭제와 관련해서!?
+삭제와 관련해서!? pop의 경우에 임의의 요소를 삭제한다
+```python
+a = {1,2,3,4,5}
+a.pop()
+```
+
+세트 역시 리스트와 같이 완전 독립된 개체로 사용하고 싶다면 copy() 메서드를 사용하면 됩니다!
+```python
+a = {1,2,3,4,5}
+b = a.copy()
+
+id(a) == id(b)
+```
+
+for문 출력? => 순서가 없기 때문에 출력 때마다 값이 바뀌는 것 조심! 또한 주의해야할 점! 세트는 중복되는 값을 한 개만 남기기 때문에 p가 중복되는 경우 한 개만 출력됩니다~
+```python
+a = 'apple'
+b = {word for word in a}
+print(b)
+```
+
+
+## 파일 읽기 쓰기
+```python
+file = open('hello.txt', 'w') # 읽기의 경우 'r'
+file.write('Hello, python')
+file.close()
+```
+
+## 회문 판별
+```python
+word = 'level'
+
+is_palindrome = True
+for i in range(len(word) // 2):
+    if word[i] != word[-1 -i]:
+        is_pailndrome = False
+        break
+
+## OR ## 거꾸로 인덱스
+
+word = 'level'
+print(word == word[::-1])
+
+## OR ## reversed를 이용해서 하기
+
+word = 'level'
+list_word = list(word)
+re_word = list(reversed(word))
+
+print(list_word == re_word)
+```
+
+
+## def 함수!!
+
+여러분 드디어 함수에 도달했습니다
+```python
+def add_cal(a, b):
+    """
+    두 개의 인자를 더하는 함수입니다.
+    """
+    return a + b
+
+add_cal(1,2)
+```
+
+### 가변인자 
+인자의 갯수를 특정할 수 없을 때 많이 사용! 리스트 언팩킹과 비교하면서 주의하자
+
+```python
+def p_num(*nums):
+    for num in nums:
+        print(num)
+
+p_num(1,2,3,4,5)
+
+## OR ##
+
+def n_num(a, b, c):
+    print(a)
+    print(b)
+    print(c)
+
+n_num(*[1,2,3])
+```
+
+
+kwargs 키워드 인자!는 딕셔너리로 값이 들어온다 생각하면 편해용
+```python
+def sol(**kwargs):
+    new = {}
+    for key, value in kwargs.items():
+        new['key'] = value
+    return new
+
+print(sol(name = 'jinwoo', age = 20))
+
+## OR ##
+
+def sol(**kwargs):
+    new = {key: value for key, value in kwargs.items()}
+    return new
+
+print(sol(name = 'jinwoo', age = 20))
+```
+
+
+인자의 초깃값 설정
+```python
+def sol(name, age, address='비공개'):
+    print('이름', name)
+    print('주소', address)
+    print('나이', age)
+
+sol('jinwoo', 1)
+
+# 이름 jinwoo 주소 비공개 나이 1
+```
+
+### 재귀함수
+
+재귀함수 => 자기 자신을 호출하는 함수
+```python
+def factorial(n):
+    if n == 1:
+        return 1
+    return n * factorial(n-1)
+
+print(factorial(5))
+```

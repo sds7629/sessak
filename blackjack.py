@@ -31,7 +31,7 @@ class User:
         return self._user_card
 
     def calculate_card(self) -> int:
-        if sum(self._user_card) >= 21 and len(self._user_card) == 2:
+        if sum(self._user_card) == 21 and len(self._user_card) == 2:
             return 0
 
         if 11 in self._user_card and sum(self._user_card) >= 21:

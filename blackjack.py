@@ -45,32 +45,32 @@ class User:
 
 
 player1 = User("jinoo")
-computer = User("딜러")
+dealer_com = User("딜러")
 
 
 class BlackJackGame(User):
-    def __init__(self, user: User, computer: User) -> None:
+    def __init__(self, user: User, dealer: User) -> None:
         self.player1 = user
-        self.computer = computer
+        self.dealer = dealer
         self.is_gameover = False
 
     def game_settings(self):
         self.player1.choice_card()
-        self.computer.choice_card()
+        self.dealer.choice_card()
 
     @staticmethod
-    def compare(player: int, computer: int) -> str:
-        if player == computer:
+    def compare(player: int, dealer: int) -> str:
+        if player == dealer:
             return "Draw 🙃"
-        elif computer == 0:
+        elif dealer == 0:
             return "Blackjack 😱"
         elif player == 0:
             return "Win Blackjack 😎"
         elif player > 21:
             return "21을 초과 했어요 당신은 졌습니다."
-        elif computer > 21:
+        elif dealer > 21:
             return "딜러가 21점을 초과 했어요 플레이어가 이겼습니다."
-        elif player > computer:
+        elif player > dealer:
             return "플레이어가 이겼습니다.😃"
         else:
             return "딜러가 이겼습니다. 😤"
@@ -81,7 +81,7 @@ class BlackJackGame(User):
         if sure == "y":
             self.game_settings()
             player_score = self.player1.calculate_card()
-            dealer_score = self.computer.calculate_card()
+            dealer_score = self.dealer.calculate_card()
             print(f"나의 덱 {self.player1._user_card}")
             while not self.is_gameover:
                 if player_score == 0 or dealer_score == 0 or player_score >= 21:
@@ -95,12 +95,12 @@ class BlackJackGame(User):
                     else:
                         self.is_gameover = True
             while dealer_score != 0 and dealer_score < 17:
-                self.computer.new_card()
-                dealer_score = self.computer.calculate_card()
+                self.dealer.new_card()
+                dealer_score = self.dealer.calculate_card()
 
             print(
                 f"""
-            {self.player1._name}님의 카드는 {self.player1._user_card}, 딜러의 카드는 {self.computer._user_card}
+            {self.player1._name}님의 카드는 {self.player1._user_card}, 딜러의 카드는 {self.dealer._user_card}
             {self.player1._name}님의 점수는 {player_score} 딜러의 점수는 {dealer_score}
             결과는 {self.compare(player_score, dealer_score)}
                 """
@@ -110,5 +110,5 @@ class BlackJackGame(User):
 
 
 if __name__ == "__main__":
-    game = BlackJackGame(player1, computer)
+    game = BlackJackGame(player1, dealer_com)
     print(game.game_start())
